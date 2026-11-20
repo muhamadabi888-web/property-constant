@@ -1,45 +1,81 @@
 <?php
 
+namespace Pbo\Marketplace;
+
 class Produk {
-    public string $kode;
-    public string $nama;
-    public int $harga;
-    public int $stok;
+    private string $kode;
+    private string $nama;
+    private int $harga;
+    private int $stok;
 
     const PAJAK = 0.11;
 
-    public function __construct($kode, $nama, $harga, $stok){
-        $this->kode = $kode;
-        $this->nama = $nama;
-        $this->harga = $harga;
-        $this->stok = $stok;
+    public function __construct() {
+       
     } 
 
-    public function pajak(){
+    public function setKode($kode){
+        $this->kode = $kode;
+        return $this;
+    }
+
+    public function setNama(){
+        $this->nama = $nama;
+        return $this;
+    }
+
+    public function setHarga($harga){
+        if ($harga <= 0) {
+            echo "harga tidak boleh 0";
+        }
+
+        $this->harga = $harga;
+        return $this;
+    }
+
+    public function setStok($stok){
+        if ($stok <= 0) {
+            echo "stok tidak boleh 0";
+            exit();
+        }
+
+        $this->stok = $stok;
+        return $this;
+
+    }
+
+    //getter
+    public function getKode() {
+        return $this->kode;
+
+    }
+
+    public function getNama() {
+        return $this->nama;
+
+    }
+
+    public function getHarga() {
+        return $this->harga;
+
+    }
+
+    public function getStok() {
+        return $this->stok;
+
+    }
+
+    public function pajak() {
         return self::PAJAK * 100;
+
     }
 
-    public function total(){
+    public function total() {
         return $this->harga + ($this->harga * self::PAJAK);
-    }
 
-    
+    }
 }
 
 
-// Membuat objek produk
-$produk = new Produk('P001', 'Laptop', 10000000, 5);
 
-
-// Menampilkan informasi produk
-echo "produk: " . $produk->nama;
-echo "<br/>";
-echo "harga: Rp" . $produk->harga;
-echo "<br/>";
-echo "stok: " . $produk->stok;
-echo "<br/>";
-echo "pajak: " . $produk->pajak()."%";
-echo "<br/>";
-echo "<br/>";
-echo "total harga setelah pajak: Rp" .$produk->total();
 ?>
